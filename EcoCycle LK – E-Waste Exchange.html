@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EcoCycle LK – E-Waste Exchange</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#06201c;--em:#34d399;--am:#fbbf24;--tx:#eafff7;--mu:#a7cfc3;--gl:rgba(255,255,255,.09);--bd:rgba(255,255,255,.2);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--ink);color:var(--tx);font-family:'Bricolage Grotesque',system-ui,sans-serif;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(60% 50% at 15% 10%,rgba(52,211,153,.35),transparent),radial-gradient(50% 45% at 90% 20%,rgba(251,191,36,.22),transparent),radial-gradient(60% 50% at 60% 100%,rgba(52,211,153,.2),transparent),var(--ink)}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid var(--bd);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 40px rgba(0,0,0,.3);border-radius:22px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin:12px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.logo i{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--em),var(--am));display:grid;place-items:center;color:var(--ink)}
+svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+button,input,select{font:inherit;color:inherit}
+.btn{border:0;cursor:pointer;padding:10px 18px;border-radius:14px;font-weight:600;display:inline-flex;gap:8px;align-items:center;background:var(--gl);border:1px solid var(--bd);transition:.2s}
+.btn:hover{background:rgba(255,255,255,.18)}
+.btn.p{background:linear-gradient(135deg,var(--em),#7ee8c0);color:var(--ink);border:0}
+.btn.a{background:linear-gradient(135deg,var(--am),#fde68a);color:var(--ink);border:0}
+.btn.s{padding:7px 12px;font-size:.85rem}
+:focus-visible{outline:2px solid var(--am);outline-offset:2px}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center;padding:28px 12px}
+h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.05;margin:0 0 14px;font-weight:800}
+h2{margin:0 0 12px;font-size:1.3rem}
+p{color:var(--mu);line-height:1.55;margin:0 0 14px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{padding:18px}
+.card .ic{color:var(--am);width:28px;height:28px;margin-bottom:8px}
+.flow{padding:20px;display:grid;gap:10px}
+.step{display:flex;gap:12px;align-items:center;padding:10px;border-radius:14px;background:var(--gl)}
+.step svg{color:var(--em)}
+.stat b{display:block;font-size:1.5rem;color:var(--em)}
+.stat span{color:var(--mu);font-size:.85rem}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.tabs .btn{white-space:nowrap}.tabs .on{background:var(--em);color:var(--ink);border:0}
+label{display:block;font-size:.85rem;color:var(--mu);margin-bottom:10px}
+input,select{width:100%;margin-top:4px;padding:11px 13px;border-radius:12px;background:rgba(0,0,0,.28);border:1px solid var(--bd)}
+select option{color:#000}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.row:last-child{border:0}.row small{color:var(--mu);display:block}
+.tag{padding:3px 10px;border-radius:99px;font-size:.75rem;background:rgba(251,191,36,.2);color:var(--am)}
+.tag.g{background:rgba(52,211,153,.2);color:var(--em)}
+.form2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:16px;z-index:10}
+.modal .glass{width:100%;max-width:400px;padding:24px;background:rgba(10,45,38,.75)}
+.seg{display:flex;gap:6px;margin-bottom:14px}.seg .btn{flex:1;justify-content:center;padding:9px 4px;font-size:.85rem}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);padding:12px 20px;z-index:20}
+.note{font-size:.8rem;color:var(--mu)}
+.who{display:flex;gap:8px;align-items:center}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.who span{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><div class="bg"></div><div id="app"></div>
+<script>
+const SVC=0.08, I={
+leaf:'<path d="M11 20A7 7 0 0 1 4 13c0-6 7-9 16-9 0 9-3 16-9 16z"/><path d="M4 21c2-6 5-9 9-11"/>',
+rec:'<path d="M7 19H4l3-5M17 5h3l-3 5"/><path d="M5 14a7 7 0 0 1 7-9h2M19 10a7 7 0 0 1-7 9h-2"/>',
+truck:'<path d="M1 5h13v11H1zM14 9h4l4 4v3h-8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+cart:'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l3 12h11l2-8H6"/>',
+shield:'<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/>',
+coin:'<circle cx="12" cy="12" r="9"/><path d="M15 9.5C14 8 10 8 9.5 10.5S11 13 12.5 13.5s3 1.5 2 3.5-5 2-6 0M12 6v2m0 8v2"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',out:'<path d="M9 21H5V3h4M16 17l5-5-5-5M21 12H9"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 15-5 16 0"/>',
+box:'<path d="M21 8l-9-5-9 5 9 5zM3 8v8l9 5 9-5V8M12 13v8"/>',
+chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>'};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24">${I[n]}</svg>`;
+const L=n=>'LKR '+Math.round(n).toLocaleString('en-LK');
+const uid=()=>Math.random().toString(36).slice(2,8);
+let S={users:[{email:'customer@demo.lk',pass:'demo123',name:'Nimali Perera',role:'customer'},{email:'dealer@demo.lk',pass:'demo123',name:'EcoCycle Owner',role:'dealer'},{email:'hub@demo.lk',pass:'demo123',name:'GreenLoop Recyclers',role:'hub'}],
+pickups:[{id:'p1',owner:'customer@demo.lk',item:'Old laptops',kg:12,cond:'Working parts',ask:18000,status:'Requested'}],
+listings:[{id:'l1',title:'Refurbished LED monitor 22"',price:14500,by:'dealer@demo.lk'},{id:'l2',title:'Mobile phone batch (5 units, parts)',price:9800,by:'dealer@demo.lk'}],
+orders:[],hubs:[{id:'h1',name:'GreenLoop Recyclers',city:'Colombo',rate:420,email:'hub@demo.lk'}],hubSales:[]};
+try{const s=localStorage.getItem('ecolk');if(s)S=JSON.parse(s)}catch(e){}
+let me=null,tab='',modal=null,toastT='';
+const save=()=>{try{localStorage.setItem('ecolk',JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s);
+function toast(t){toastT=t;render();setTimeout(()=>{toastT='';render()},2200)}
+function login(email,pass){const u=S.users.find(x=>x.email==email.trim().toLowerCase()&&x.pass==pass);if(!u)return toast('Email or password is wrong');me=u;tab='';modal=null;render()}
+function signup(){const n=$('#sn').value,e=$('#se').value.trim().toLowerCase(),p=$('#sp').value,r=$('#sr').value;
+if(!n||!e||p.length<4)return toast('Fill all fields (password 4+ characters)');if(S.users.find(x=>x.email==e))return toast('Email already registered');
+S.users.push({email:e,pass:p,name:n,role:r});save();login(e,p)}
+function requestPickup(){const f=id=>$('#'+id).value;if(!f('pi')||!+f('pk')||!+f('pa'))return toast('Add item, weight and price');
+S.pickups.push({id:uid(),owner:me.email,item:f('pi'),kg:+f('pk'),cond:f('pc'),ask:+f('pa'),status:'Requested'});save();tab='mine';toast('Pickup requested')}
+function collect(id){const p=S.pickups.find(x=>x.id==id),v=+$('#lp'+id).value;if(!v)return toast('Enter listing price');
+p.status='Listed';S.listings.push({id:uid(),title:p.item+' ('+p.kg+' kg)',price:v,by:me.email,pid:id});save();toast('Collected and listed for sale')}
+function buy(id){const l=S.listings.find(x=>x.id==id),fee=l.price*SVC;S.orders.push({id:uid(),buyer:me.email,title:l.title,price:l.price,fee,total:l.price+fee,date:new Date().toLocaleDateString()});
+S.listings=S.listings.filter(x=>x.id!=id);const p=S.pickups.find(x=>x.id==l.pid);if(p)p.status='Sold';save();toast('Order placed')}
+function addHub(){const n=$('#hn').value,c=$('#hc').value,r=+$('#hr').value,e=$('#he').value.trim().toLowerCase(),pw=$('#hp').value||'hub123';
+if(!n||!e||!r)return toast('Name, email and rate are required');if(S.users.find(x=>x.email==e))return toast('Email already used');
+S.hubs.push({id:uid(),name:n,city:c,rate:r,email:e});S.users.push({email:e,pass:pw,name:n,role:'hub'});save();toast('Recycle hub added')}
+function sellHub(){const h=S.hubs.find(x=>x.id==$('#sh').value),kg=+$('#sk').value;if(!h||!kg)return toast('Pick a hub and enter kg');
+const g=kg*h.rate;S.hubSales.push({id:uid(),hub:h.email,hubName:h.name,kg,rate:h.rate,gross:g,fee:g*SVC,date:new Date().toLocaleDateString()});save();toast('Sold to '+h.name)}
+function logout(){me=null;tab='';render()}
+const setTab=t=>{tab=t;render()};
+function revenue(){return S.orders.reduce((a,o)=>a+o.fee,0)+S.hubSales.reduce((a,o)=>a+o.fee,0)}
+function nav(){return `<nav class="glass"><div class="logo"><i>${ic('leaf')}</i>EcoCycle LK</div>
+${me?`<div class="who"><span>${me.name} · ${me.role}</span><button class="btn s" onclick="logout()">${ic('out')}Log out</button></div>`:`<div class="who"><button class="btn s" onclick="modal='in';render()">Log in</button><button class="btn p s" onclick="modal='up';render()">Sign up</button></div>`}</nav>`}
+function landing(){return `<section class="hero"><div><h1>Turn old electronics into value.</h1>
+<p>We collect e-waste from households, sell working items to buyers at fair prices, and send the final scrap to certified recycle hubs. Everything is paid in LKR.</p>
+<button class="btn p" onclick="modal='up';render()">${ic('plus')}Create free account</button>
+<p class="note" style="margin-top:12px">Service charge: ${SVC*100}% per order. Try demo accounts from the login window.</p></div>
+<div class="glass flow">${[['truck','1. Customers request a free pickup'],['chip','2. Dealer collects and lists items for sale'],['cart','3. Buyers purchase at reasonable prices'],['rec','4. Final waste goes to a recycle hub']].map(s=>`<div class="step">${ic(s[0])}<b>${s[1]}</b></div>`).join('')}</div></section>
+<div class="grid">${[['user','Customers','Sell your e-waste, buy refurbished items.'],['shield','Dealers','Collect, price, list and manage hubs.'],['rec','Recycle hubs','Receive final waste and get paid per kg.'],['coin','Fair pricing','Transparent LKR prices and a clear service charge.']].map(c=>`<div class="glass card">${ic(c[0])}<h2>${c[1]}</h2><p>${c[2]}</p></div>`).join('')}</div>`}
+function authModal(){const up=modal=='up';return `<div class="modal" onclick="if(event.target==this){modal=null;render()}"><div class="glass">
+<h2>${up?'Create account':'Welcome back'}</h2>
+${up?`<label>Full name<input id="sn" autocomplete="name"></label>`:''}
+<label>Email<input id="${up?'se':'le'}" type="email" autocomplete="email"></label>
+<label>Password<input id="${up?'sp':'lp'}" type="password" autocomplete="${up?'new-password':'current-password'}"></label>
+${up?`<label>I am a<select id="sr"><option value="customer">Customer</option><option value="hub">Recycle hub</option></select></label>`:''}
+<button class="btn p" style="width:100%;justify-content:center" onclick="${up?'signup()':"login($('#le').value,$('#lp').value)"}">${up?'Sign up':'Log in'}</button>
+${up?'':`<p class="note" style="margin:14px 0 6px">One-tap demo access (password demo123):</p><div class="seg"><button class="btn" onclick="login('customer@demo.lk','demo123')">Customer</button><button class="btn a" onclick="login('dealer@demo.lk','demo123')">Dealer</button><button class="btn" onclick="login('hub@demo.lk','demo123')">Hub</button></div>`}
+<p class="note" style="text-align:center;margin:8px 0 0"><a href="#" style="color:var(--em)" onclick="modal='${up?'in':'up'}';render();return false">${up?'Have an account? Log in':'New here? Sign up'}</a></p></div></div>`}
+const tabs=(a,cur)=>`<div class="tabs">${a.map(t=>`<button class="btn ${cur==t[0]?'on':''}" onclick="setTab('${t[0]}')">${ic(t[2])}${t[1]}</button>`).join('')}</div>`;
+const stat=(a)=>`<div class="grid" style="margin-bottom:14px">${a.map(s=>`<div class="glass card stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>`;
+const mkt=()=>`<div class="glass card"><h2>Marketplace</h2>${S.listings.length?S.listings.map(l=>`<div class="row"><div><b>${l.title}</b><small>Price ${L(l.price)} + ${SVC*100}% service charge = <b>${L(l.price*(1+SVC))}</b></small></div><button class="btn p s" onclick="buy('${l.id}')">${ic('cart')}Buy</button></div>`).join(''):'<p>Nothing listed right now. Check back soon.</p>'}</div>`;
+function customer(){tab=tab||'sell';const mp=S.pickups.filter(p=>p.owner==me.email),mo=S.orders.filter(o=>o.buyer==me.email);
+return stat([[mp.length,'Pickup requests'],[L(mp.filter(p=>p.status=='Sold').reduce((a,p)=>a+p.ask,0)),'Earned from sales'],[mo.length,'Items bought']])+tabs([['sell','Sell e-waste','truck'],['buy','Buy items','cart'],['mine','My activity','box']],tab)+
+(tab=='sell'?`<div class="glass card"><h2>Request a free pickup</h2><div class="form2"><label>Item<input id="pi" placeholder="e.g. Old laptops"></label><label>Weight (kg)<input id="pk" type="number" min="1"></label><label>Condition<select id="pc"><option>Working</option><option>Working parts</option><option>Broken</option></select></label><label>Your asking price (LKR)<input id="pa" type="number" min="0"></label></div><button class="btn p" onclick="requestPickup()">${ic('truck')}Request pickup</button></div>`:
+tab=='buy'?mkt():`<div class="glass card"><h2>My pickups</h2>${mp.map(p=>`<div class="row"><div><b>${p.item}</b><small>${p.kg} kg · ${p.cond} · ask ${L(p.ask)}</small></div><span class="tag ${p.status=='Sold'?'g':''}">${p.status}</span></div>`).join('')||'<p>No pickups yet.</p>'}<h2 style="margin-top:18px">My purchases</h2>${mo.map(o=>`<div class="row"><div><b>${o.title}</b><small>${o.date}</small></div><b>${L(o.total)}</b></div>`).join('')||'<p>No purchases yet.</p>'}</div>`)}
+function dealer(){tab=tab||'req';const rq=S.pickups.filter(p=>p.status=='Requested');
+return stat([[L(revenue()),'Service charge revenue'],[rq.length,'Pickups waiting'],[S.hubs.length,'Recycle hubs'],[S.orders.length+S.hubSales.length,'Transactions']])+tabs([['req','Pickups','truck'],['ord','Orders','cart'],['hubs','Recycle hubs','rec'],['sell','Sell to hub','coin']],tab)+
+(tab=='req'?`<div class="glass card"><h2>Collection requests</h2>${rq.map(p=>`<div class="row"><div><b>${p.item}</b><small>${p.kg} kg · ${p.cond} · ${p.owner} · ask ${L(p.ask)}</small></div><div class="who"><input id="lp${p.id}" type="number" value="${Math.round(p.ask*1.3)}" style="width:120px;margin:0" aria-label="Listing price LKR"><button class="btn p s" onclick="collect('${p.id}')">Collect and list</button></div></div>`).join('')||'<p>No pending requests.</p>'}</div>`:
+tab=='ord'?`<div class="glass card"><h2>Orders and commission</h2>${S.orders.map(o=>`<div class="row"><div><b>${o.title}</b><small>${o.buyer} · ${o.date}</small></div><div>${L(o.total)} <span class="tag g">fee ${L(o.fee)}</span></div></div>`).join('')||'<p>No orders yet.</p>'}</div>`:
+tab=='hubs'?`<div class="glass card"><h2>Add recycle hub</h2><div class="form2"><label>Hub name<input id="hn"></label><label>City<input id="hc"></label><label>Rate (LKR per kg)<input id="hr" type="number"></label><label>Login email<input id="he" type="email"></label><label>Password (default hub123)<input id="hp"></label></div><button class="btn a" onclick="addHub()">${ic('plus')}Add hub</button><h2 style="margin-top:20px">Your hubs</h2>${S.hubs.map(h=>`<div class="row"><div><b>${h.name}</b><small>${h.city||'-'} · ${h.email}</small></div><span class="tag g">${L(h.rate)}/kg</span></div>`).join('')}</div>`:
+`<div class="glass card"><h2>Sell final waste to a recycle hub</h2><div class="form2"><label>Hub<select id="sh">${S.hubs.map(h=>`<option value="${h.id}">${h.name} (${L(h.rate)}/kg)</option>`).join('')}</select></label><label>Weight (kg)<input id="sk" type="number" min="1"></label></div><button class="btn p" onclick="sellHub()">${ic('rec')}Complete sale</button><p class="note" style="margin-top:10px">A ${SVC*100}% service charge is recorded as platform revenue.</p>${S.hubSales.map(h=>`<div class="row"><div><b>${h.hubName}</b><small>${h.kg} kg × ${L(h.rate)} · ${h.date}</small></div><div>${L(h.gross)} <span class="tag g">fee ${L(h.fee)}</span></div></div>`).join('')}</div>`)}
+function hub(){const mine=S.hubSales.filter(h=>h.hub==me.email);
+return stat([[mine.reduce((a,h)=>a+h.kg,0)+' kg','Received'],[L(mine.reduce((a,h)=>a+h.gross,0)),'Total value'],[mine.length,'Deliveries']])+`<div class="glass card"><h2>Incoming deliveries</h2>${mine.map(h=>`<div class="row"><div><b>${h.kg} kg final waste</b><small>${h.date} · ${L(h.rate)}/kg</small></div><b>${L(h.gross)}</b></div>`).join('')||'<p>No deliveries yet. The dealer will send final waste here.</p>'}</div>`}
+function render(){$('#app').innerHTML=nav()+'<main>'+(!me?landing():`<h1 style="font-size:1.8rem">Hello, ${me.name.split(' ')[0]}</h1>`+({customer,dealer,hub}[me.role])())+'</main>'+(modal?authModal():'')+(toastT?`<div class="glass toast">${toastT}</div>`:'')}
+render();
+</script></body></html>
